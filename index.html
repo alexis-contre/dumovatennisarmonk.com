@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Tennis Brand</title>
+    <meta
+      name="description"
+      content="Modern dark-themed tennis website with Dumova-style layout and organized programs, schedule, pricing, and policies."
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      :root {
+        --black: #000000;
+        --white: #ffffff;
+        --muted: #abb8c3;
+
+        /* your accent */
+        --accent: #d0ed31;
+        --accent-soft: #d0ed31;
+
+        /* Dark theme surfaces */
+        --bg: #07090b;
+        --panel: #0d1013;
+        --panel2: #0a0c0f;
+        --border: rgba(255, 255, 255, 0.12);
+        --text: rgba(255, 255, 255, 0.92);
+        --text2: rgba(255, 255, 255, 0.7);
+        --text3: rgba(255, 255, 255, 0.55);
+
+        --shadow-natural: 6px 6px 9px rgba(0, 0, 0, 0.35);
+        --shadow-deep: 12px 12px 50px rgba(0, 0, 0, 0.55);
+
+        --radius: 18px;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+      .token-muted {
+        color: var(--text2);
+      }
+      .token-muted-2 {
+        color: var(--text3);
+      }
+      .token-border {
+        border-color: var(--border);
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-natural);
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: var(--black);
+      }
+      .btn-primary:hover {
+        filter: brightness(0.95);
+      }
+
+      .btn-ink {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+      .btn-ink:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .accent-bar {
+        background: var(--accent);
+      }
+      .split {
+        line-height: 0.88;
+        letter-spacing: -0.04em;
+      }
+
+      /* Background glow updated to your accent (no teal) */
+      .bg-glow {
+        background:
+          radial-gradient(
+            700px 420px at 15% 10%,
+            rgba(208, 237, 49, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            700px 420px at 85% 0%,
+            rgba(208, 237, 49, 0.1),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 600px at 60% 110%,
+            rgba(208, 237, 49, 0.08),
+            transparent 60%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(7, 9, 11, 1) 0%,
+            rgba(7, 9, 11, 1) 45%,
+            rgba(6, 8, 10, 1) 100%
+          );
+      }
+
+      /* Hero image */
+      .hero-img {
+        background-image:
+          url('./images/headshot.jpg');
+        min-height: 70vh;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      
+      .img-cover {
+        background-size: cover;
+        background-position: center;
+      }
+
+      .ball-badge {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.18) 0 32%,
+          rgba(208, 237, 49, 0.45) 60% 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 14px 40px rgba(208, 237, 49, 0.14);
+        position: relative;
+        overflow: hidden;
+      }
+      .ball-badge:after {
+        content: '';
+        position: absolute;
+        inset: -10px;
+        background: linear-gradient(
+          115deg,
+          transparent 0 44%,
+          rgba(255, 255, 255, 0.55) 44% 46%,
+          transparent 46% 100%
+        );
+        opacity: 0.3;
+        transform: rotate(7deg);
+      }
+
+      a.navlink {
+        color: rgba(255, 255, 255, 0.72);
+      }
+      a.navlink:hover {
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      /* accordion */
+      .acc-btn {
+        width: 100%;
+        text-align: left;
+      }
+      .acc-panel {
+        display: none;
+      }
+      .acc.open .acc-panel {
+        display: block;
+      }
+      .acc.open .chev {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans">
+    <div class="fixed inset-0 -z-10 bg-glow"></div>
+
+    <!-- NAV -->
+    <header
+      class="sticky top-0 z-50 backdrop-blur bg-black/35 border-b token-border"
+    >
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="flex items-center justify-between py-4">
+          <a href="#top" class="flex items-center gap-3">
+            <span class="ball-badge" aria-hidden="true"></span>
+            <div class="leading-tight">
+              <div class="font-black tracking-tight">DUMOVA TENNIS</div>
+            </div>
+          </a>
+
+          <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
+            <a class="navlink" href="#overview">Overview</a>
+            <a class="navlink" href="#dates">Dates</a>
+            <a class="navlink" href="#schedule">Schedule</a>
+            <a class="navlink" href="#programs">Programs</a>
+            <a class="navlink" href="#adults">Adults</a>
+            <a class="navlink" href="#pricing">Pricing</a>
+            <a class="navlink" href="#policies">Policies</a>
+            <a class="navlink" href="#contact">Contact</a>
+          </nav>
+
+          <div class="hidden md:flex items-center gap-3">
+            <a
+              href="#contact"
+              class="rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+              style="box-shadow: var(--shadow-natural)"
+            >
+              Get in touch
+            </a>
+          </div>
+
+          <button
+            id="menuBtn"
+            class="md:hidden rounded-xl p-2.5 border token-border hover:bg-white/5"
+            aria-label="Open menu"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div id="mobileMenu" class="md:hidden hidden pb-4">
+          <div class="grid gap-2 text-sm font-semibold">
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#overview"
+              >Overview</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#dates"
+              >Dates</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#schedule"
+              >Schedule</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#programs"
+              >Programs</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#adults"
+              >Adults</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#pricing"
+              >Pricing</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#policies"
+              >Policies</a
+            >
+            <a class="rounded-xl px-3 py-2 hover:bg-white/5" href="#contact"
+              >Contact</a
+            >
+            <a
+              class="rounded-xl px-3 py-2 font-extrabold btn-primary"
+              href="#contact"
+              >Get in touch</a
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="top" class="hero-img">
+      <div class="mx-auto max-w-6xl px-5 py-16 sm:py-20">
+        <div class="max-w-3xl">
+          <div class="mt-6 font-black split">
+            <div class="text-[56px] sm:text-[78px]">DUMOVA TENNIS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="h-20 sm:h-24 img-cover strip-1"></div>
+
+    <main class="mx-auto max-w-6xl px-5">
+      <!-- OVERVIEW -->
+      <section id="overview" class="py-14 sm:py-16">
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-4">
+            <div class="font-black split">
+              <div class="text-4xl sm:text-5xl">OVERVIEW</div>
+            </div>
+            <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+          </div>
+
+          <div class="lg:col-span-8">
+            <div class="card p-7">
+              <h2 class="text-2xl font-black">What to expect</h2>
+              <p class="mt-2 text-lg token-muted leading-relaxed">
+                I started Dumova Tennis because I saw a need in our area: a
+                place where players don’t just “hit balls,” but learn proper
+                mechanics, disciplined footwork, and competitive habits that
+                translate into real match results, whether they’re brand new or
+                working toward Varsity and beyond.<br> <br>
+                My tennis journey began at
+                age 9, and by 12 I was competing at the national level. I went
+                on to become a nationally ranked junior, compete internationally
+                on the ITF circuit, and reach US Open qualifying. I later played
+                Division I tennis at San Diego State University, served as team
+                captain, and competed at the NCAA level for four years as a
+                scholar-athlete.<br> <br>
+                Today, I’m proud to be a Sacred Heart Coach for
+                the JV A and 5/6th grade tennis teams. My focus is building a
+                true pipeline of confident, technically sound, match-ready
+                players from Pre-K through 12th grade. The Dumova Tennis pathway
+                is intentionally designed: foundational stroke development →
+                rally tolerance and consistency → point construction and match
+                play → Varsity readiness. For athletes with bigger goals, we
+                also train the skills that matter for USTA competition and
+                high-performance development: footwork patterns, pace tolerance,
+                decision- making under pressure, and strong competitive
+                routines. Parents can expect clear standards, structured
+                progressions, and measurable improvement so players know exactly
+                what they’re working on each week.<br> <br>
+                For younger players, training
+                is age-appropriate, structured, and fun, using QuickStart-based
+                progressions that build real technique right away:
+                continental/eastern grips, clean swing paths, early preparation,
+                balance, and efficient recovery steps. As players grow, we add
+                the “next level” tools: split-step timing, spacing and
+                contact-point awareness, directional control (crosscourt vs
+                down-the-line), serving and returning fundamentals, smart shot
+                selection, and confidence in points. So by the time tryouts and
+                team placement matter, they’re not “starting tennis”, they’re
+                prepared to compete.<br> <br> 
+                If you’re looking for a program where your
+                daughter will be coached with clarity, standards, and a
+                long-term plan—this is it. Choose her age/level below to reserve
+                a spot for indoor training. Most families see the strongest
+                progress with 2x/week for beginners and 2–3x/week for
+                competitive players. Spots are limited to keep coaching ratios
+                high.
+              </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DATES -->
+      <!-- DATES -->
+<section id="dates" class="py-14 sm:py-16 border-t token-border">
+  <div class="grid lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-4">
+      <div class="font-black split">
+        <div class="text-4xl sm:text-5xl">DATES</div>
+      </div>
+      <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+      <p class="mt-6 text-sm token-muted">
+        Quick reference for season blocks and off dates.
+      </p>
+    </div>
+
+    <div class="lg:col-span-8 grid gap-4">
+      <div class="card p-7">
+        <div class="mt-2 text-2xl font-black">
+          Junior Clinic Dates (Fall/Winter) • 26 weeks
+        </div>
+        <div class="mt-2 text-lg font-bold">September 8 – March 12</div>
+        <div class="mt-2 font-black text-medium token-muted">
+          Off dates:
+          <span class="text-white font-semibold">11/26</span>,
+          <span class="text-white font-semibold">12/21 – 1/1</span>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card p-7">
+          <div class="mt-2 text-2xl font-black">
+            Ladies 1.5hr Clinic (Fall/Winter/Spring) • 33 weeks
+          </div>
+          <div class="mt-2 text-lg font-bold">September 8 – May 12</div>
+          <div class="mt-2 font-bold text-medium token-muted">
+            Off dates:
+            <span class="text-white font-semibold">12/21 – 1/3</span>,
+            <span class="text-white font-semibold">2/15 – 2/17</span>
+          </div>
+        </div>
+
+        <div class="card p-7">
+          <div class="mt-2 text-2xl font-black">
+            Private Lessons (Fall/Winter/Spring) • 38 weeks
+          </div>
+          <div class="mt-2 text-lg font-bold">September 5 – June 12</div>
+          <div class="mt-2 font-bold text-medium token-muted">
+            Off dates:
+            <span class="text-white font-semibold">12/26 – 1/02</span>,
+            <span class="text-white font-semibold">2/13</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+   <!-- SCHEDULE -->
+<section id="schedule" class="py-14 sm:py-16 border-t token-border">
+  <div class="grid lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-4">
+      <div class="font-black split">
+        <div class="text-4xl sm:text-5xl">SCHEDULE</div>
+      </div>
+      <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+      <p class="mt-6 text-sm token-muted">
+        Weekly schedule for Junior Clinics (Fall/Winter).
+      </p>
+    </div>
+
+    <div class="lg:col-span-8 grid gap-4">
+      <!-- Full weekly schedule (Mon/Tue/Wed/Thu) -->
+      <div class="card p-7">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left token-muted">
+              <tr>
+                <th class="py-2 pr-4 font-extrabold">Day</th>
+                <th class="py-2 pr-4 font-extrabold">Time</th>
+                <th class="py-2 pr-4 font-extrabold">Program</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y" style="border-color: rgba(255, 255, 255, 0.12)">
+              <!-- Monday -->
+              <tr>
+                <td class="py-3 pr-4 font-extrabold">Monday</td>
+                <td class="py-3 pr-4">3:30pm–4:30pm</td>
+                <td class="py-3 pr-4">Future SH Tennis Stars (Red Ball)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">4:30pm–5:30pm</td>
+                <td class="py-3 pr-4">Pre–Middle School Tennis Prep (Orange/Green Dot)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">5:30pm–7:30pm</td>
+                <td class="py-3 pr-4">High School Varsity Prep Plus</td>
+              </tr>
+
+              <!-- Tuesday (include this block) -->
+              <tr>
+                <td class="py-3 pr-4 font-extrabold">Tuesday</td>
+                <td class="py-3 pr-4">4:00pm–5:00pm</td>
+                <td class="py-3 pr-4">Pre–Middle School Tennis Prep (Orange/Green Dot)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">5:00pm–6:00pm</td>
+                <td class="py-3 pr-4">5/6 Match-Play Ready Builder (Yellow Ball)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">6:00pm–7:30pm</td>
+                <td class="py-3 pr-4">7/8 High Performance (Yellow Ball)</td>
+              </tr>
+
+              <!-- Wednesday -->
+              <tr>
+                <td class="py-3 pr-4 font-extrabold">Wednesday</td>
+                <td class="py-3 pr-4">3:30pm–4:30pm</td>
+                <td class="py-3 pr-4">Future SH Tennis Stars (Red Ball)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">4:30pm–6:00pm</td>
+                <td class="py-3 pr-4">High School Varsity Prep</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">6:00pm–7:30pm</td>
+                <td class="py-3 pr-4">High School Varsity Prep</td>
+              </tr>
+
+              <!-- Thursday -->
+              <tr>
+                <td class="py-3 pr-4 font-extrabold">Thursday</td>
+                <td class="py-3 pr-4">3:30pm–4:30pm</td>
+                <td class="py-3 pr-4">Pre–Middle School Tennis Prep (Orange/Green Dot)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">4:30pm–6:00pm</td>
+                <td class="py-3 pr-4">5/6 High Performance (Yellow Ball)</td>
+              </tr>
+              <tr>
+                <td class="py-3 pr-4"></td>
+                <td class="py-3 pr-4">6:00pm–7:30pm</td>
+                <td class="py-3 pr-4">7/8 High Performance (Yellow Ball)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Keep only Jump to programs (removed Ask about placement) -->
+      <div class="flex flex-wrap gap-3">
+        <a href="#programs" class="rounded-xl px-5 py-3 font-extrabold btn-ink">Jump to programs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <main class="mx-auto max-w-6xl px-5">
+      <!-- PROGRAMS -->
+      <section id="programs" class="py-14 sm:py-16 border-t token-border">
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-4">
+            <div class="font-black split">
+              <div class="text-4xl sm:text-5xl">JUNIOR PROGRAMS & PRICING</div>
+            </div>
+            <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+            <p class="mt-6 text-sm token-muted">
+              For more info tap “Details” to expand.
+            </p>
+          </div>
+
+          <div class="lg:col-span-8">
+           
+
+            <!-- Compact grid -->
+            <div class="mt-5 grid gap-4 sm:grid-cols-2">
+              
+
+              <!-- Red: Future SH Tennis Stars -->
+              <article class="card p-5 prog-card" data-program="future-sh-red">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 4.5–5.5 • Red dot • 36’
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">
+                      Future SH Tennis Stars
+                    </h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >1 hour</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$1,690 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                 <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    High-repetition rallying, clean technique, disciplined
+                    movement patterns. Builds proper mechanics, reliable
+                    contact, and early match-ready habits.
+                  </p>
+                 
+                </div>
+              </article>
+
+              <!-- Orange/Green Dot: Pre–Middle School Tennis Prep -->
+              <article class="card p-5 prog-card" data-program="pre-middle-orange-green">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 7–9 • Orange/Green Dot • 60’
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">
+                      Pre–Middle School Tennis Prep
+                    </h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >1 hour</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$1,950 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    Bridges fundamentals to real point play. Technical
+                    refinement, footwork/court coverage, tactical
+                    decision-making, and coached point play daily.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Yellow: Match-Play Ready Builder -->
+              <article class="card p-5 prog-card" data-program="matchplay-56-yellow">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 9–11 • Yellow • Full court
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">
+                      5/6 Match-Play Ready Builder
+                    </h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >1 hour</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$2,080 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    Coached match play (not free play): serve/return, rally
+                    patterns, positioning, shot selection, and point
+                    construction with real-time feedback.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Yellow: 5/6 HP -->
+              <article class="card p-5 prog-card" data-program="hp-56-yellow">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 9–11 • Yellow • Full court
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">
+                      5/6 High Performance
+                    </h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >1.5 hours</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$2,990 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    Faster-paced performance training: decision-making, spacing,
+                    movement efficiency, plus coached point play and intro
+                    singles/doubles strategy.
+                  </p>
+                </div>
+              </article>
+
+              <!-- Yellow: 7/8 HP -->
+              <article class="card p-5 prog-card" data-program="hp-78-yellow">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 11–13 • Yellow • Full court
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">
+                      7/8 High Performance
+                    </h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >1.5 hours</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$3,120 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    Intermediate–advanced middle school training: speed/fitness,
+                    spin/depth tolerance, strategy/pattern play, coached singles
+                    and doubles.
+                  </p>
+                </div>
+              </article>
+
+              <!-- HS: Varsity Prep -->
+              <article class="card p-5 prog-card" data-program="hs-varsity">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 14–18 • Yellow • Full court
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">
+                      High School Varsity Prep
+                    </h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >1.5 hours</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$3,120 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    JV → varsity readiness: power, pace tolerance, point
+                    construction, transition skills, plus detailed
+                    singles/doubles feedback.
+                  </p>
+                </div>
+              </article>
+
+              <!-- HS: Varsity Prep Plus -->
+              <article class="card p-5 prog-card" data-program="hs-varsity-plus">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <div class="text-xs font-extrabold token-muted">
+                      Ages 14–18 • Yellow • Full court
+                    </div>
+                    <h4 class="mt-1 text-lg font-black">Varsity Prep Plus</h4>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >2 hours</span
+                      >
+                      <span
+                        class="px-2 py-1 rounded-full border token-border bg-white/5"
+                        >$4,160 season</span
+                      >
+                    </div>
+                  </div>
+                  <span
+                    class="h-2.5 w-2.5 rounded-full mt-1"
+                    style="background: var(--accent)"
+                  ></span>
+                </div>
+
+                <button
+                  class="prog-toggle mt-4 w-full rounded-xl btn-ink px-4 py-2 text-sm font-extrabold"
+                >
+                  Details
+                </button>
+                <a
+                    href="#"
+                    class="reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                <div class="prog-details mt-4 hidden">
+                  <p class="text-sm token-muted leading-relaxed">
+                    Tennis-specific fitness + supervised match play with
+                    structured singles/doubles scenarios (serve+1, return
+                    positioning, decision-making).
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADULTS -->
+      <section id="adults" class="py-14 sm:py-16 border-t token-border">
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-4">
+            <div class="font-black split">
+              <div class="text-4xl sm:text-5xl">ADULTS</div>
+            </div>
+            <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+          </div>
+
+          <div class="lg:col-span-8 grid gap-4">
+            <article class="card p-7" data-progrma="ladies-15hr">
+              <div class="flex items-start justify-between gap-6 flex-wrap">
+                <div class="min-w-[260px]">
+                  <div class="text-xs font-extrabold token-muted">
+                    33-week clinic
+                  </div>
+                  <h4 class="mt-2 text-xl font-black">Ladies 1.5hr Clinic</h4>
+                  <div class="mt-2 text-lg font-bold">September 8 – May 12</div>
+                   <div class="mt-2 font-bold text-medium token-muted">
+                      Off dates:
+                      <span class="text-white font-semibold">12/21 – 1/3</span>,
+                      <span class="text-white font-semibold">2/15 – 2/17</span>
+                   </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-extrabold">1.5 hours</div>
+                  <div class="mt-1 text-lg font-black">$2,970 per player</div>
+                  <a
+                    href="#"
+                    class="reserve-btn adult-reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    data-program="ladies-15hr"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="card p-7" data-progma="private-lessons">
+              <div class="flex items-start justify-between gap-6 flex-wrap">
+                <div class="min-w-[260px]">
+                  <div class="text-xs font-extrabold token-muted">
+                    38-week season
+                  </div>
+                  <h4 class="mt-2 text-xl font-black">
+                    Private Lessons (Fall/Winter/Spring)
+                  </h4>
+                  <div class="mt-2 text-lg font-bold">September 5 – June 12</div>
+                  <div class="mt-2 font-bold text-medium token-muted">
+                    Off dates:
+                    <span class="text-white font-semibold">12/26 – 1/02</span>,
+                    <span class="text-white font-semibold">2/13</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-extrabold">Private</div>
+                  <div class="mt-1 text-lg font-black">$8,360 Total</div>
+                  <div class="mt-1 text-xs token-muted-2">
+                    Split into two payments of $4,180
+                  </div>
+                  <a
+                    href="#"
+                    class="reserve-btn adult-reserve-btn mt-4 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-primary"
+                    data-program="private-lessons"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Reserve
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- POLICIES (updated: Cancellation only, waiver removed) -->
+<section id="policies" class="py-14 sm:py-16 border-t token-border">
+  <div class="grid lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-4">
+      <div class="font-black split">
+        <div class="text-4xl sm:text-5xl">POLICY</div>
+      </div>
+      <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+      <p class="mt-6 text-sm token-muted">
+        Clear expectations: cancellations, make-ups, and refunds.
+      </p>
+    </div>
+
+    <div class="lg:col-span-8 space-y-4">
+      <!-- Cancellation Policy Accordion -->
+      <div class="card p-0 overflow-hidden acc">
+        <button class="acc-btn p-7 flex items-center justify-between gap-4">
+          <div>
+            <div class="text-lg font-black">Cancellation, Make-Up &amp; Refund Policy</div>
+            <div class="mt-1 text-sm token-muted">
+              24-hour notice required • Refunds permitted on or before June 1
+            </div>
+          </div>
+          <svg
+            class="chev h-5 w-5 transition-transform"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+
+        <div class="acc-panel px-7 pb-7">
+          <div class="text-sm token-muted leading-relaxed space-y-3">
+            <p>
+              <span class="text-white font-semibold">
+                Cancellation, Make-Up &amp; Refund Policy Acknowledgment
+              </span>
+            </p>
+
+            <ul class="list-disc pl-5 space-y-2">
+              <li>
+                A minimum of 24 hours’ notice is required for a cancellation to be eligible for a make-up
+                (including adult clinics, junior clinics, and private lessons).
+              </li>
+              <li>
+                Cancellations made with less than 24 hours’ notice will be charged in full and are not
+                eligible for a make-up.
+              </li>
+              <li>
+                Junior clinic make-ups may be offered when possible but are not guaranteed and are
+                subject to court availability (for example, weekend evenings or holiday breaks).
+              </li>
+              <li>
+                Make-ups must be used within the same indoor season and do not carry over.
+              </li>
+              <li>
+                Refund requests are permitted on or before June 1. Cancellations made after June 1 are
+                non-refundable.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /Cancellation Policy Accordion -->
+    </div>
+  </div>
+</section>
+
+      <!-- CONTACT (Wanna Chat) -->
+<section id="contact" class="py-14 sm:py-16 border-t token-border">
+  <div class="grid lg:grid-cols-12 gap-10 items-start">
+    <!-- Left column (headline + contact info) -->
+    <div class="lg:col-span-4">
+      <div class="font-black split">
+        <div class="text-4xl sm:text-5xl">WANNA</div>
+        <div class="text-4xl sm:text-5xl -mt-1">CHAT</div>
+      </div>
+      <div class="mt-4 h-1 w-30 accent-bar rounded-full"></div>
+
+      <p class="mt-6 text-sm token-muted">
+        Please email me for any questions or concerns? (24hr response time.)
+      </p>
+
+      <div class="mt-6 card p-6">
+        <div class="text-sm font-extrabold">Contact</div>
+
+        <!-- Email -->
+        <div class="mt-3 text-sm token-muted">
+          Email:
+          <a
+            class="text-white font-semibold hover:underline"
+            href="mailto:youremail@domain.com"
+            >dumovatennis@gmail.com</a
+          >
+        </div>
+
+        <!-- Location -->
+        <div class="mt-3 text-sm token-muted">
+          Location:
+          <div class="mt-1 text-white font-semibold">
+            The Domes Armonk Sports Club
+          </div>
+          <div class="text-sm token-muted">
+            205 Business Park Dr, Armonk, NY 10504
+          </div>
+        </div>
+
+        <!-- Optional: directions button -->
+        <a
+          class="mt-5 inline-flex justify-center w-full rounded-xl px-4 py-2.5 font-extrabold btn-ink"
+          target="_blank"
+          rel="noopener"
+          href="https://www.google.com/maps/search/?api=1&query=The%20Domes%20Armonk%20Sports%20Club%2C%20205%20Business%20Park%20Dr%2C%20Armonk%2C%20NY%2010504"
+        >
+          Get directions
+        </a>
+      </div>
+    </div>
+
+    <!-- Right column (Google Map) -->
+    <div class="lg:col-span-8">
+      <div class="card overflow-hidden" style="background: var(--panel2)">
+        <div class="p-6 border-b token-border">
+          <div class="text-sm font-extrabold">Find us</div>
+          <div class="mt-1 text-sm token-muted">
+            The Domes Armonk Sports Club • Armonk, NY
+          </div>
+        </div>
+
+        <div class="w-full" style="height: 420px">
+          <!-- Google Maps embed (no API key needed) -->
+          <iframe
+            title="The Domes Armonk Sports Club map"
+            class="w-full h-full"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=The%20Domes%20Armonk%20Sports%20Club%2C%20205%20Business%20Park%20Dr%2C%20Armonk%2C%20NY%2010504&output=embed"
+            style="border: 0"
+            allowfullscreen=""
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t token-border" style="background: rgba(255, 255, 255, 0.04)">
+  <div class="mx-auto max-w-6xl px-5 py-10">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="text-sm token-muted">
+        <div class="font-extrabold text-white tracking-tight">DUMOVA TENNIS</div>
+        <div class="mt-1">
+          © <span id="year"></span> Dumova Tennis LLC. All rights reserved.
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+        <a class="navlink" href="#programs">Programs</a>
+        <a class="navlink" href="#schedule">Schedule</a>
+        <a class="navlink" href="#policies">Policy</a>
+        <a class="navlink" href="#contact">Contact</a>
+        <a class="navlink" href="./privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        <a class="navlink" href="./terms.html" target="_blank" rel="noopener">Terms of Service</a>
+        <a class="navlink" href="./waiver.html" target="_blank" rel="noopener">Waiver</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script>
+      // Mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      menuBtn?.addEventListener('click', () =>
+        mobileMenu.classList.toggle('hidden'),
+      );
+      // Program Details toggles (single-open behavior)
+document.querySelectorAll('.prog-toggle').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.prog-card');
+    if (!card) return;
+
+    // close all other open cards
+    document.querySelectorAll('.prog-card .prog-details').forEach((panel) => {
+      if (!card.contains(panel)) panel.classList.add('hidden');
+    });
+    document.querySelectorAll('.prog-card .prog-toggle').forEach((b) => {
+      if (b !== btn) b.textContent = 'Details';
+    });
+
+    const details = card.querySelector('.prog-details');
+    if (!details) return;
+
+    const isHidden = details.classList.contains('hidden');
+    details.classList.toggle('hidden', !isHidden);
+    btn.textContent = isHidden ? 'Hide details' : 'Details';
+  });
+});
+
+// Stripe Payment Link mapping (program id -> Stripe URL)
+const stripeLinks = {
+  "future-sh-red": "https://buy.stripe.com/test_bJebJ16Vn3NN2oM8VJ7g409",
+  "pre-middle-orange-green": "https://buy.stripe.com/test_8x214n93v8432oMfk77g404",
+  "matchplay-56-yellow": "https://buy.stripe.com/test_00wdR97Zr2JJ1kIeg37g402",
+  "hp-56-yellow": "https://buy.stripe.com/test_bJe6oH3Jb4RR4wU6NB7g406",
+  "hp-78-yellow": "https://buy.stripe.com/test_fZucN5bbD3NN6F2b3R7g401",
+  "hs-varsity": "https://buy.stripe.com/test_4gMaEXgvX8435AY5Jx7g40b",
+  "hs-varsity-plus": "https://buy.stripe.com/test_14A4gz3Jb843fbyfk77g40a",
+  "ladies-15hr": "https://buy.stripe.com/test_00wbJ1a7z2JJ5AY2xl7g40c",
+  "private-lessons": "https://buy.stripe.com/test_9B69AT1B38432oM6NB7g40d",
+};
+
+// Auto-attach Stripe links to every Reserve button
+document.querySelectorAll(".prog-card").forEach((card) => {
+  const programId = card.getAttribute("data-program");
+  const reserveBtn = card.querySelector(".reserve-btn");
+  if (!programId || !reserveBtn) return;
+
+  const url = stripeLinks[programId];
+
+  if (url) {
+    reserveBtn.setAttribute("href", url);
+  } else {
+    // If you forget to add a link, disable button so you notice
+    reserveBtn.setAttribute("href", "#");
+    reserveBtn.classList.add("opacity-50", "pointer-events-none");
+    reserveBtn.textContent = "Reserve (link missing)";
+    console.warn("Missing Stripe link for:", programId);
+  }
+});
+
+document.querySelectorAll(".adult-reserve-btn").forEach((btn) => {
+  const programId = btn.getAttribute("data-program");
+  const url = stripeLinks[programId];
+  if (url) btn.href = url;
+});
+
+      // Footer year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Demo form UX
+      const contactForm = document.getElementById('contactForm');
+      const contactMsg = document.getElementById('contactMsg');
+      contactForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        contactMsg.textContent = 'Sent — we’ll get back to you soon.';
+        contactForm.reset();
+      });
+
+      const newsForm = document.getElementById('newsForm');
+      const newsMsg = document.getElementById('newsMsg');
+      newsForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        newsMsg.textContent = "You're subscribed. Welcome.";
+        newsForm.reset();
+      });
+
+      // Accordions
+      document.querySelectorAll('.acc').forEach((acc) => {
+        const btn = acc.querySelector('.acc-btn');
+        btn.addEventListener('click', () => acc.classList.toggle('open'));
+      });
+    </script>
+  </body>
+</html>
