@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dumova Tennis — Terms of Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      :root {
+        --bg: #07090b;
+        --panel: #0d1013;
+        --panel2: #0a0c0f;
+        --border: rgba(255, 255, 255, 0.12);
+        --text: rgba(255, 255, 255, 0.92);
+        --text2: rgba(255, 255, 255, 0.7);
+        --accent: #d0ed31;
+        --radius: 18px;
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      /* subtle Dumova-style glow background */
+      .bg-glow {
+        background:
+          radial-gradient(700px 420px at 15% 10%, rgba(208, 237, 49, 0.16), transparent 60%),
+          radial-gradient(700px 420px at 85% 0%, rgba(208, 237, 49, 0.10), transparent 55%),
+          radial-gradient(900px 600px at 60% 110%, rgba(208, 237, 49, 0.08), transparent 60%),
+          linear-gradient(180deg, rgba(7, 9, 11, 1) 0%, rgba(6, 8, 10, 1) 100%);
+      }
+
+      .token-muted { color: var(--text2); }
+
+      a.link { color: var(--accent); }
+      a.link:hover { text-decoration: underline; }
+
+      .card {
+        background: linear-gradient(180deg, rgba(13, 16, 19, 1) 0%, rgba(10, 12, 15, 1) 100%);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* accent edge on the card */
+      .card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--accent);
+        opacity: 0.9;
+      }
+
+      /* soft highlight on headings */
+      .title-accent {
+        text-shadow: 0 0 18px rgba(208, 237, 49, 0.18);
+      }
+
+      /* numbered section header line */
+      .sec-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .sec-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 18px rgba(208, 237, 49, 0.25);
+        flex: 0 0 auto;
+      }
+
+      /* small pill badge */
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .pill .pill-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans">
+    <div class="fixed inset-0 -z-10 bg-glow"></div>
+
+    <main class="mx-auto max-w-3xl px-5 py-12">
+      <div class="flex items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="pill text-xs font-semibold token-muted">
+            <span class="pill-dot" aria-hidden="true"></span>
+            Terms of Service
+          </div>
+
+          <h1 class="mt-3 text-3xl sm:text-4xl font-black tracking-tight title-accent">
+            Dumova Tennis LLC — Terms of Service
+          </h1>
+
+          <p class="mt-3 token-muted">
+            These Terms govern registration for and participation in Dumova Tennis LLC programs, clinics,
+            lessons, camps, and events (“Activities”). By purchasing, registering, or participating, you agree to these Terms.
+          </p>
+        </div>
+
+        <a class="link text-sm font-semibold whitespace-nowrap mt-1" href="./index.html">
+          Back to site
+        </a>
+      </div>
+
+      <div class="mt-6 card p-6 sm:p-7 space-y-5">
+        <div>
+          <div class="sec-title font-bold">
+            <span class="sec-dot" aria-hidden="true"></span>
+            1. Waiver required
+          </div>
+          <div class="mt-1 token-muted">
+            Participation in any on-court activity requires acceptance of the Dumova Tennis LLC Waiver &amp; Release.
+            You can review it here:
+            <a class="link font-semibold" href="./waiver.html">Waiver &amp; Release</a>.
+          </div>
+        </div>
+
+        <div>
+          <div class="sec-title font-bold">
+            <span class="sec-dot" aria-hidden="true"></span>
+            2. Payments
+          </div>
+          <div class="mt-1 token-muted">
+            Payments are processed through Stripe. Your reservation may not be confirmed until payment is completed.
+            Prices, program dates, and schedules are listed on the website and/or the Stripe checkout page.
+          </div>
+        </div>
+
+        <div>
+          <div class="sec-title font-bold">
+            <span class="sec-dot" aria-hidden="true"></span>
+            3. Cancellation, make-up &amp; refund policy
+          </div>
+          <div class="mt-1 token-muted">
+            The following policy applies to adult clinics, junior clinics, and private lessons:
+          </div>
+          <ul class="mt-3 list-disc pl-5 space-y-2 token-muted">
+            <li>
+              A minimum of <span class="text-white font-semibold">24 hours’ notice</span> is required for a cancellation
+              to be eligible for a make-up.
+            </li>
+            <li>
+              Cancellations made with <span class="text-white font-semibold">less than 24 hours’ notice</span> will be charged
+              in full and are not eligible for a make-up.
+            </li>
+            <li>
+              Junior clinic make-ups may be offered when possible but are not guaranteed and are subject to court availability
+              (for example, weekend evenings or holiday breaks).
+            </li>
+            <li>
+              Make-ups must be used within the same indoor season and do not carry over.
+            </li>
+            <li>
+              Refund requests are permitted on or before <span class="text-white font-semibold">June 1</span>.
+              Cancellations made after June 1 are non-refundable.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="sec-title font-bold">
+            <span class="sec-dot" aria-hidden="true"></span>
+            4. Schedule changes
+          </div>
+          <div class="mt-1 token-muted">
+            Dumova Tennis LLC may adjust sessions due to safety concerns, weather, facility availability, or staffing.
+            When possible, changes will be communicated in advance.
+          </div>
+        </div>
+
+        <div>
+          <div class="sec-title font-bold">
+            <span class="sec-dot" aria-hidden="true"></span>
+            5. Chargebacks &amp; disputes
+          </div>
+          <div class="mt-1 token-muted">
+            If you have a billing issue, please contact us first so we can resolve it quickly.
+            Initiating a chargeback may result in loss of reservation and/or future enrollment until the dispute is resolved.
+          </div>
+        </div>
+
+        <div>
+          <div class="sec-title font-bold">
+            <span class="sec-dot" aria-hidden="true"></span>
+            6. Contact
+          </div>
+          <div class="mt-1 token-muted">
+            Email:
+            <a class="link font-semibold" href="mailto:dumovatennis@gmail.com">dumovatennis@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-6 text-xs token-muted">
+        Note: This page provides general business terms and is not legal advice. For terms tailored to your business,
+        consult a qualified attorney in your jurisdiction.
+      </p>
+    </main>
+  </body>
+</html>
