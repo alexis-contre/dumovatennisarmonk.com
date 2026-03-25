@@ -1165,40 +1165,38 @@ document.querySelectorAll('.prog-toggle').forEach((btn) => {
 
 // Stripe Payment Link mapping (program id -> Stripe URL)
 const stripeLinks = {
-  "future-sh-red": "https://buy.stripe.com/test_bJebJ16Vn3NN2oM8VJ7g409",
-  "pre-middle-orange-green": "https://buy.stripe.com/test_8x214n93v8432oMfk77g404",
-  "matchplay-56-yellow": "https://buy.stripe.com/test_00wdR97Zr2JJ1kIeg37g402",
-  "hp-56-yellow": "https://buy.stripe.com/test_bJe6oH3Jb4RR4wU6NB7g406",
-  "hp-78-yellow": "https://buy.stripe.com/test_fZucN5bbD3NN6F2b3R7g401",
-  "hs-varsity": "https://buy.stripe.com/test_4gMaEXgvX8435AY5Jx7g40b",
-  "hs-varsity-plus": "https://buy.stripe.com/test_14A4gz3Jb843fbyfk77g40a",
-  "ladies-15hr": "https://buy.stripe.com/test_00wbJ1a7z2JJ5AY2xl7g40c",
-  "private-lessons": "https://buy.stripe.com/test_9B69AT1B38432oM6NB7g40d",
+  'future-sh-red': 'https://book.stripe.com/28E8wP81fgn29Xt02a0Fi01',
+        'pre-middle-orange-green':
+          'https://book.stripe.com/8x24gz2GV6MsedJaGO0Fi00',
+        'matchplay-56-yellow':
+          'https://book.stripe.com/3cIeVd95j1s8c5B5mu0Fi07',
+        'hp-56-yellow': 'https://book.stripe.com/4gM5kDbdr1s80mT8yG0Fi06',
+        'hp-78-yellow': 'https://book.stripe.com/cNi3cvgxL2wc5Hd3em0Fi08',
+        'hs-varsity': 'https://book.stripe.com/9B6bJ1dlz0o48Tp5mu0Fi04',
+        'hs-varsity-plus': 'https://book.stripe.com/14A6oH4P3gn26Lh3em0Fi05',
+        'ladies-15hr': 'https://book.stripe.com/eVq3cv6Xbb2I8Tp02a0Fi03',
+        'private-lessons': 'https://book.stripe.com/cNi28r5T71s8c5BbKS0Fi02',
 };
 
-// Auto-attach Stripe links to every Reserve button
+// --- Waiver-first flow ---
+// 1) Reserve buttons go to waiver.html with the program id in the URL
 document.querySelectorAll(".prog-card").forEach((card) => {
   const programId = card.getAttribute("data-program");
   const reserveBtn = card.querySelector(".reserve-btn");
   if (!programId || !reserveBtn) return;
 
-  const url = stripeLinks[programId];
-
-  if (url) {
-    reserveBtn.setAttribute("href", url);
-  } else {
-    // If you forget to add a link, disable button so you notice
-    reserveBtn.setAttribute("href", "#");
-    reserveBtn.classList.add("opacity-50", "pointer-events-none");
-    reserveBtn.textContent = "Reserve (link missing)";
-    console.warn("Missing Stripe link for:", programId);
-  }
+  // Always go to waiver first
+  reserveBtn.setAttribute("href", `./waiver.html?program=${encodeURIComponent(programId)}`);
+  reserveBtn.removeAttribute("target"); // keep in same tab so flow feels normal
 });
 
+// Adults buttons (already have data-program on the <a>)
 document.querySelectorAll(".adult-reserve-btn").forEach((btn) => {
   const programId = btn.getAttribute("data-program");
-  const url = stripeLinks[programId];
-  if (url) btn.href = url;
+  if (!programId) return;
+
+  btn.setAttribute("href", `./waiver.html?program=${encodeURIComponent(programId)}`);
+  btn.removeAttribute("target");
 });
 
       // Footer year
