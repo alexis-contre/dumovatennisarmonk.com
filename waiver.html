@@ -311,26 +311,63 @@
       agree?.addEventListener('change', validate);
       sig?.addEventListener('input', validate);
 
-      btn?.addEventListener('click', () => {
+      const FORMSPREE_URL = 'https://formspree.io/f/xxxxabcd'; // <-- paste yours here
+
+      btn?.addEventListener('click', async () => {
         const url = stripeLinks[programId];
+
         if (!programId || !url) {
           err.textContent =
             'Missing payment link. Please go back and try again.';
           return;
         }
 
-        // OPTIONAL: store proof locally (not legally perfect, but better than nothing)
-        localStorage.setItem(
-          `waiver_${programId}_${Date.now()}`,
-          JSON.stringify({
+        // final validation check (in case someone forces the button)
+        const ok = agree?.checked && (sig?.value || '').trim().length >= 3;
+        if (!ok) {
+          err.textContent =
+            'Please check the box and type your full name to sign.';
+          return;
+        }
+
+        // UI: prevent double clicks
+        btn.classList.add('opacity-50', 'pointer-events-none');
+        btn.textContent = 'Saving waiver...';
+
+        try {
+          // Send waiver record to Formspree
+          const payload = {
             programId,
             signature: sig.value.trim(),
             agreed: true,
-            ts: new Date().toISOString(),
-          }),
-        );
+            timestamp: new Date().toISOString(),
+            page: window.location.href,
+            userAgent: navigator.userAgent,
+          };
 
-        window.location.href = url;
+          const res = await fetch(FORMSPREE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          if (!res.ok) throw new Error('Form submission failed');
+
+          // Optional: keep local copy too
+          localStorage.setItem(
+            `waiver_${programId}_${Date.now()}`,
+            JSON.stringify(payload),
+          );
+
+          // Go to Stripe payment link
+          window.location.href = url;
+        } catch (e) {
+          console.error(e);
+          err.textContent =
+            'Couldn’t save the waiver. Please try again (or contact us).';
+          btn.classList.remove('opacity-50', 'pointer-events-none');
+          btn.textContent = 'Continue to payment';
+        }
       });
 
       // Run once on load
