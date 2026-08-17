@@ -314,60 +314,86 @@
 
       const FORMSPREE_URL = 'https://formspree.io/f/xjgpvrya';
 
+      // If a Stripe link exists for this program, the waiver will save first
+      // and then redirect to payment. If no Stripe link exists, the waiver
+      // will still be submitted to Formspree.
+      const paymentUrl = programId ? stripeLinks[programId] : null;
+
+      // Since your payment links may be intentionally disabled, change the
+      // button label automatically.
+      btn.textContent = paymentUrl ? 'Continue to Payment' : 'Submit Waiver';
+
       btn?.addEventListener('click', async () => {
-        const url = stripeLinks[programId];
-
-        if (!programId || !url) {
-          err.textContent =
-            'Missing payment link. Please go back and try again.';
-          return;
-        }
-
-        // final validation check (in case someone forces the button)
+        // Final validation check
         const ok = agree?.checked && (sig?.value || '').trim().length >= 3;
+
         if (!ok) {
           err.textContent =
             'Please check the box and type your full name to sign.';
           return;
         }
 
-        // UI: prevent double clicks
+        // UI: prevent double clicks while saving
         btn.classList.add('opacity-50', 'pointer-events-none');
         btn.textContent = 'Saving waiver...';
+        err.textContent = '';
 
         try {
-          // Send waiver record to Formspree
+          // Send waiver record to Formspree whether or not a payment link exists
           const payload = {
-            programId,
+            programId: programId || 'general-waiver',
             signature: sig.value.trim(),
             agreed: true,
             timestamp: new Date().toISOString(),
             page: window.location.href,
             userAgent: navigator.userAgent,
+            paymentLinkAvailable: Boolean(paymentUrl),
           };
 
           const res = await fetch(FORMSPREE_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
             body: JSON.stringify(payload),
           });
 
-          if (!res.ok) throw new Error('Form submission failed');
+          if (!res.ok) {
+            const responseText = await res.text();
+            throw new Error(
+              `Form submission failed (${res.status}): ${responseText}`,
+            );
+          }
 
-          // Optional: keep local copy too
+          // Keep a local browser copy as a backup
+          const storageProgramId = programId || 'general-waiver';
           localStorage.setItem(
-            `waiver_${programId}_${Date.now()}`,
+            `waiver_${storageProgramId}_${Date.now()}`,
             JSON.stringify(payload),
           );
 
-          // Go to Stripe payment link
-          window.location.href = url;
+          // Only redirect if this program currently has an active Stripe link
+          if (paymentUrl) {
+            btn.textContent = 'Opening payment...';
+            window.location.href = paymentUrl;
+            return;
+          }
+
+          // No payment link: waiver was still successfully submitted
+          btn.textContent = 'Waiver Submitted ✓';
+          err.textContent =
+            'Thank you. Your waiver has been submitted successfully.';
+          err.style.color = 'var(--accent)';
         } catch (e) {
           console.error(e);
           err.textContent =
             'Couldn’t save the waiver. Please try again (or contact us).';
+          err.style.color = '';
           btn.classList.remove('opacity-50', 'pointer-events-none');
-          btn.textContent = 'Continue to payment';
+          btn.textContent = paymentUrl
+            ? 'Continue to Payment'
+            : 'Submit Waiver';
         }
       });
 
